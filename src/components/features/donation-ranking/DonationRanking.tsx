@@ -24,7 +24,7 @@ const DonationRanking: React.FC<DonationRankingProps> = ({
             <tr>
               <th className="px-4 py-2 border-b">Rank</th>
               <th className="px-4 py-2 border-b">Star</th>
-              <th className="px-4 py-2 border-b">Total Amount (USDC)</th>
+              <th className="px-4 py-2 border-b">Total Amount (KRE)</th>
             </tr>
           </thead>
           <tbody>

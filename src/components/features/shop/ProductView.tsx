@@ -26,7 +26,7 @@ const ProductView: React.FC<ProductViewProps> = ({ product, to }) => {
       />
       <div className="p-4">
         <p className="text-sm font-semibold text-primary">{product.name}</p>
-        <p className="text-xs text-neutral-600">{`${product.price} USDC`}</p>
+        <p className="text-xs text-neutral-600">{`${product.price} KRE`}</p>
       </div>
     </Link>
   );

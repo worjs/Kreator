@@ -95,7 +95,7 @@ const ReviewDonation: React.FC<ReviewDonationProps> = ({
         {!isApproved ? (
           <button
             className="btn-primary"
-            onClick={onApprove}
+            onClick={onConfirm}
             disabled={loading}
           >
             {loading ? 'Approving...' : 'Approve'}

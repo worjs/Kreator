@@ -15,7 +15,7 @@ const Posts = () => {
       <p className="text-primary text-3xl font-semibold mb-4">Today's Best</p>
       <div className="grid grid-cols-2 gap-4">
         {posts
-          .sort((a, b) => b.id - a.id)
+          .sort((a, b) => a.id - b.id)
           .map((p, i) => (
             <PostView to={String(p.id)} key={i} post={p} />
           ))}

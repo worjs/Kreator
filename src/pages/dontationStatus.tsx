@@ -7,7 +7,7 @@ import DonationStatus from '../components/features/donation-status/DonationStatu
 
 const DonationStatusPage: React.FC = () => {
   const nav = useNavigate();
-  const star = { name: 'LISA', image: 'assets/lisa.png' };
+  const star = { name: 'LISA', image: '/assets/stars/lisa.webp' };
   const accumulatedAmount = 104568424;
   const organizations = [
     { name: 'Association for the Promotion...', amount: 104568424 },

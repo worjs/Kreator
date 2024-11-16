@@ -20,7 +20,7 @@ const DonationStatus: React.FC<DonationStatusProps> = ({
 }) => {
   return (
     <div className="flex flex-col items-center p-6">
-      <div className="text-center mb-4">
+      <div className="text-center mb-4 flex flex-col items-center">
         <img
           src={star.image}
           alt={star.name}
@@ -29,7 +29,7 @@ const DonationStatus: React.FC<DonationStatusProps> = ({
         <h2 className="text-2xl font-bold text-primary">{star.name}</h2>
         <p className="text-sm text-neutral-600">Accumulated sponsored amount</p>
         <p className="text-3xl font-bold text-primary">
-          {accumulatedAmount.toLocaleString()} USDC
+          {accumulatedAmount.toLocaleString()} KRE
         </p>
       </div>
 
@@ -38,7 +38,7 @@ const DonationStatus: React.FC<DonationStatusProps> = ({
           <thead>
             <tr>
               <th className="px-4 py-2 border-b">Sponsored Organizations</th>
-              <th className="px-4 py-2 border-b">Total Amount (USDC)</th>
+              <th className="px-4 py-2 border-b">Total Amount (KRE)</th>
             </tr>
           </thead>
           <tbody>

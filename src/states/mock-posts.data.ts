@@ -7,7 +7,7 @@ export const MockPosts: Post[] = [
     author: 'LilieS2',
     title: 'Lisa Vogue Interview 24.09.18 Translation',
     contents:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      'Lisa talked about the concept of the "New Woman" that she pursues...',
     imageUrls: [
       '/assets/posts/1-1.png',
       '/assets/posts/1-2.png',
@@ -15,6 +15,48 @@ export const MockPosts: Post[] = [
     ],
     price: 5,
     tag: 'Lisa',
-    likes: 123,
+    likes: 1214,
+  },
+  {
+    id: 2,
+    author: 'Lelole',
+    title: 'Lisa New Music video Symbols & Story',
+    contents:
+      'The various props used in Lisa’s new song connect to her previous works...',
+    imageUrls: ['/assets/posts/1-3.png'],
+    price: 5,
+    tag: 'LISA',
+    likes: 3421,
+  },
+  {
+    id: 3,
+    author: 'LisaFangin',
+    title: 'BLACKPINK LISA Fan-Art',
+    contents: 'No Description',
+    imageUrls: ['/assets/posts/image 8.png'],
+    price: 5,
+    tag: 'LISA',
+    likes: 0,
+  },
+  {
+    id: 4,
+    author: 'KosmeticK',
+    title: "In-Depth Analysis of Lisa's Makeup Style",
+    contents: "Let's explore the key makeup secrets of Lisa...",
+    imageUrls: ['/assets/posts/post_4.jpg'],
+    price: 5,
+    tag: 'LISA',
+    likes: 5,
+  },
+  {
+    id: 5,
+    author: 'skadi',
+    title: "5 Idols I'd Love to see Perform with Lisa",
+    contents:
+      'Karina, Lee Youngji, Natty, BIBI, and Jihyo—What would their performances be like?',
+    imageUrls: ['/assets/posts/post_3.jpg'],
+    price: 5,
+    tag: 'LISA',
+    likes: 2,
   },
 ];
