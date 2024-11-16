@@ -7,6 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { addPost } from 'states/posts.state';
 import { useUser } from 'states/user.state';
+import { KREToken__factory} from 'typechain';
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { isEthereumWallet } from '@dynamic-labs/ethereum';
+import { getSigner } from '@dynamic-labs/ethers-v6';
 
 const CreatePost = () => {
   const user = useUser();
@@ -15,9 +19,19 @@ const CreatePost = () => {
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [price, setPrice] = useState<string>('');
   const [tag, setTag] = useState<string>('');
+  const { primaryWallet } = useDynamicContext();
 
-  const onCreate = () => {
+  const onCreate = async () => {
     if (!Number(price)) return;
+
+    if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
+
+    const signer = await getSigner(primaryWallet);
+    const kreToken = KREToken__factory.connect('0x42705d3F7F9CfD7E0040E7077389E4ea15617Ec7', signer);
+    console.log(signer);
+    const tx = await kreToken.registerCreation(Number(price));
+    await tx.wait();
+
     addPost({
       author: user.name,
       title,
@@ -26,7 +40,7 @@ const CreatePost = () => {
       price: Number(price),
       tag: tag,
     });
-
+  
     nav(PATH.POSTS);
   };
 

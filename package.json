@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "typechain": "typechain --target ethers-v6 --out-dir ./src/typechain './src/abi/**/*.json'",
+    "typechain": "typechain --target ethers-v6 --out-dir ./src/typechain './src/abi/*.json'",
     "preview": "vite preview"
   },
   "dependencies": {

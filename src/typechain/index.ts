@@ -2,5 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { IERC20Minimal } from "./IERC20Minimal";
+export type { KREToken } from "./KREToken";
+export type { MockUSDC } from "./MockUSDC";
 export * as factories from "./factories";
 export { IERC20Minimal__factory } from "./factories/IERC20Minimal__factory";
+export { KREToken__factory } from "./factories/KREToken__factory";
+export { MockUSDC__factory } from "./factories/MockUSDC__factory";
