@@ -5,6 +5,7 @@ import { isEthereumWallet } from '@dynamic-labs/ethereum';
 import { getSigner } from '@dynamic-labs/ethers-v6';
 import { parseUnits } from 'ethers/utils';
 import { KREToken__factory, MockUSDC__factory } from '../../../typechain'; // `Star` 타입이 `SelectStar`에서 온다고 가정
+import SEPOLIA_CONTRACTS from 'configs/sepolia';
 
 interface ReviewDonationProps {
   star: Star | null;
@@ -32,11 +33,11 @@ const ReviewDonation: React.FC<ReviewDonationProps> = ({
 
     try {
       const mockUSDC = MockUSDC__factory.connect(
-        '0x29b021A913893A049266E7D5eD0fc553d4373E79',
+        SEPOLIA_CONTRACTS.MOCKUSDC,
         signer,
       );
       const tx = await mockUSDC.approve(
-        '0x45A8f175CAf1FA795D9EC7411427b399b65743eb',
+        SEPOLIA_CONTRACTS.MOCKUSDC,
         parseUnits(String(amount), 6),
       );
       await tx.wait();
@@ -55,7 +56,7 @@ const ReviewDonation: React.FC<ReviewDonationProps> = ({
 
     try {
       const kreToken = KREToken__factory.connect(
-        '0x29b021A913893A049266E7D5eD0fc553d4373E79',
+        SEPOLIA_CONTRACTS.KRETOKEN,
         signer,
       );
       const tx = await kreToken.distribute(amount);

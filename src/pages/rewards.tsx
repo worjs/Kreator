@@ -8,6 +8,7 @@ import { isEthereumWallet } from '@dynamic-labs/ethereum';
 import { getSigner } from '@dynamic-labs/ethers-v6';
 import { KREToken__factory } from '../typechain';
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import SEPOLIA_CONTRACTS from 'configs/sepolia.ts';
 
 const RewardsPage = () => {
   const [balance, setBalance] = useState<string>('');
@@ -20,7 +21,7 @@ const RewardsPage = () => {
 
         const signer = await getSigner(primaryWallet);
         const kreToken = KREToken__factory.connect(
-          '0x42705d3F7F9CfD7E0040E7077389E4ea15617Ec7',
+          SEPOLIA_CONTRACTS.KRETOKEN,
           signer,
         );
 

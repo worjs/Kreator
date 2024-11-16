@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Post } from 'states/posts.state';
 import { KREToken__factory, MockUSDC__factory } from 'typechain/factories';
 import {purchasePost} from "../../../states/user.state.ts";
+import SEPOLIA_CONTRACTS from 'configs/sepolia.ts';
 
 interface UnlockerButtonProps {
   post: Post;
@@ -29,8 +30,8 @@ export const UnlockerButton =  ({
     if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
     const signer = await getSigner(primaryWallet);
 
-    const mockUSDC = MockUSDC__factory.connect("0x94b72A68d3a01aef6A45E024cA02518518568491", signer);
-    const tx = await mockUSDC.approve("0x94b72A68d3a01aef6A45E024cA02518518568491", parseUnits(String(post.price), 6));
+    const mockUSDC = MockUSDC__factory.connect(SEPOLIA_CONTRACTS.MOCKUSDC, signer);
+    const tx = await mockUSDC.approve(SEPOLIA_CONTRACTS.MOCKUSDC, parseUnits(String(post.price), 6));
     await tx.wait();
     setIsApproved(true);
   };
@@ -39,7 +40,7 @@ export const UnlockerButton =  ({
     if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
     const signer = await getSigner(primaryWallet);
 
-    const kreToken = KREToken__factory.connect("0xA100562066c18E8410b5aaD2945c3493a385a8b3", signer);
+    const kreToken = KREToken__factory.connect(SEPOLIA_CONTRACTS.KRETOKEN, signer);
     const tx = await kreToken.unlock(post.id);
     console.log(tx);
     await tx.wait();
