@@ -29,8 +29,8 @@ export const UnlockerButton =  ({
     if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
     const signer = await getSigner(primaryWallet);
 
-    const mockUSDC = MockUSDC__factory.connect("0x29b021A913893A049266E7D5eD0fc553d4373E79", signer);
-    const tx = await mockUSDC.approve("0x45A8f175CAf1FA795D9EC7411427b399b65743eb", parseUnits(String(post.price), 6));
+    const mockUSDC = MockUSDC__factory.connect("0x94b72A68d3a01aef6A45E024cA02518518568491", signer);
+    const tx = await mockUSDC.approve("0x94b72A68d3a01aef6A45E024cA02518518568491", parseUnits(String(post.price), 6));
     await tx.wait();
     setIsApproved(true);
   };
@@ -39,7 +39,7 @@ export const UnlockerButton =  ({
     if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
     const signer = await getSigner(primaryWallet);
 
-    const kreToken = KREToken__factory.connect("0x45A8f175CAf1FA795D9EC7411427b399b65743eb", signer);
+    const kreToken = KREToken__factory.connect("0xA100562066c18E8410b5aaD2945c3493a385a8b3", signer);
     const tx = await kreToken.unlock(post.id);
     console.log(tx);
     await tx.wait();
