@@ -12,12 +12,14 @@ const ConfirmDonation: React.FC<ConfirmDonationProps> = ({
   onAmountChange,
   onNext,
 }) => {
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number | string>('');
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
-    setAmount(isNaN(value) ? 0 : value);
-    onAmountChange(isNaN(value) ? 0 : value);
+    const value = e.target.value;
+    setAmount(value);
+
+    // onAmountChange에 숫자로 변환된 값을 전달하거나 0으로 처리
+    onAmountChange(value === '' ? 0 : parseFloat(value));
   };
 
   return (
@@ -41,7 +43,7 @@ const ConfirmDonation: React.FC<ConfirmDonationProps> = ({
           htmlFor="donationAmount"
           className="block text-sm font-medium mb-2"
         >
-          Enter donation amount (in USDC):
+          Enter donation amount (in KRE):
         </label>
         <input
           type="number"
@@ -55,10 +57,14 @@ const ConfirmDonation: React.FC<ConfirmDonationProps> = ({
       </div>
 
       <div className="flex gap-4">
-        <button className="btn-secondary" onClick={() => setAmount(0)}>
+        <button className="btn-secondary" onClick={() => setAmount('')}>
           NO
         </button>
-        <button className="btn-primary" onClick={onNext} disabled={amount <= 0}>
+        <button
+          className="btn-primary"
+          onClick={onNext}
+          disabled={parseFloat(amount as string) <= 0}
+        >
           YES
         </button>
       </div>

@@ -1,5 +1,10 @@
-import React from 'react';
-import { Star } from './SelectStar'; // `Star` 타입이 `SelectStar`에서 온다고 가정
+import React, { useState } from 'react';
+import { Star } from './SelectStar';
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import { isEthereumWallet } from '@dynamic-labs/ethereum';
+import { getSigner } from '@dynamic-labs/ethers-v6';
+import { parseUnits } from 'ethers/utils';
+import { KREToken__factory, MockUSDC__factory } from '../../../typechain'; // `Star` 타입이 `SelectStar`에서 온다고 가정
 
 interface ReviewDonationProps {
   star: Star | null;
@@ -16,28 +21,52 @@ const ReviewDonation: React.FC<ReviewDonationProps> = ({
   onConfirm,
   onBack,
 }) => {
-  // const { primaryWallet } = useDynamicContext();
-  // const [isApproved, setIsApproved] = useState<boolean>(false);
+  const { primaryWallet } = useDynamicContext();
+  const [isApproved, setIsApproved] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  // const onApprove = async () => {
-  //   if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
-  //   const signer = await getSigner(primaryWallet);
+  const onApprove = async () => {
+    if (!primaryWallet || !isEthereumWallet(primaryWallet)) return;
+    const signer = await getSigner(primaryWallet);
+    setLoading(true);
 
-  //   const mockUSDC = MockUSDC__factory.connect("0x29b021A913893A049266E7D5eD0fc553d4373E79", signer);
-  //   const tx = await mockUSDC.approve("0x45A8f175CAf1FA795D9EC7411427b399b65743eb", parseUnits(String(amount), 6));
-  //   await tx.wait();
-  //   setIsApproved(true);
-  // };
+    try {
+      const mockUSDC = MockUSDC__factory.connect(
+        '0x29b021A913893A049266E7D5eD0fc553d4373E79',
+        signer,
+      );
+      const tx = await mockUSDC.approve(
+        '0x45A8f175CAf1FA795D9EC7411427b399b65743eb',
+        parseUnits(String(amount), 6),
+      );
+      await tx.wait();
+      setIsApproved(true);
+    } catch (error) {
+      console.error('Approval failed:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // const onDonate = async () => {
-  //   if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
-  //   const signer = await getSigner(primaryWallet);
+  const onDonate = async () => {
+    if (!primaryWallet || !isEthereumWallet(primaryWallet)) return;
+    const signer = await getSigner(primaryWallet);
+    setLoading(true);
 
-  //   const kreToken = KREToken__factory.connect("0x29b021A913893A049266E7D5eD0fc553d4373E79", signer);
-  //   const tx = await kreToken.distribute(amount);
-  //   await tx.wait();
-  //   setIsApproved(true);
-  // };
+    try {
+      const kreToken = KREToken__factory.connect(
+        '0x29b021A913893A049266E7D5eD0fc553d4373E79',
+        signer,
+      );
+      const tx = await kreToken.distribute(amount);
+      await tx.wait();
+      onConfirm();
+    } catch (error) {
+      console.error('Donation failed:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -53,7 +82,7 @@ const ReviewDonation: React.FC<ReviewDonationProps> = ({
       )}
 
       <p className="text-center mb-6">
-        Donate <span className="font-bold">{amount} USDC</span> to{' '}
+        Donate <span className="font-bold">{amount} KRE</span> to{' '}
         <span className="font-bold">{organization}</span> under the name of{' '}
         <span className="font-bold">{star?.name}</span>.
       </p>
@@ -62,9 +91,19 @@ const ReviewDonation: React.FC<ReviewDonationProps> = ({
         <button className="btn-secondary" onClick={onBack}>
           Change the organization
         </button>
-        <button className="btn-primary" onClick={onConfirm}>
-          Yes
-        </button>
+        {!isApproved ? (
+          <button
+            className="btn-primary"
+            onClick={onApprove}
+            disabled={loading}
+          >
+            {loading ? 'Approving...' : 'Approve'}
+          </button>
+        ) : (
+          <button className="btn-primary" onClick={onDonate} disabled={loading}>
+            {loading ? 'Donating...' : 'Donate'}
+          </button>
+        )}
       </div>
     </div>
   );
