@@ -9,7 +9,7 @@ interface PostDetailsProps {
 
 const PostDetails = ({ post }: PostDetailsProps) => {
   const user = useUser();
-  const [unlocked, setUnlocked] = useState<boolean>(user.name === post.author);
+  const [unlocked, setUnlocked] = useState<boolean>( user.purchasedPostIds.includes(post.id)  || post.author === user.name);
 
   return (
     <div className="px-6 pb-6 relative">
