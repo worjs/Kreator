@@ -14,7 +14,7 @@ export const mockProducts = [
     price: 100,
   },
   {
-    id: 2,
+    id: 1,
     name: 'LISA Photobook',
     image: '/assets/illust/register.png',
     description: 'A photobook featuring LISA’s daily life.',
