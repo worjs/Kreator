@@ -31,9 +31,21 @@ export const UnlockerButton =  ({
     const signer = await getSigner(primaryWallet);
 
     const mockUSDC = MockUSDC__factory.connect(SEPOLIA_CONTRACTS.MOCKUSDC, signer);
+    console.log(post.price);
     const tx = await mockUSDC.approve(SEPOLIA_CONTRACTS.MOCKUSDC, parseUnits(String(post.price), 6));
     await tx.wait();
-    setIsApproved(true);
+    console.log(tx);
+    
+    const allowance = await mockUSDC.allowance(primaryWallet.address, SEPOLIA_CONTRACTS.MOCKUSDC);
+    console.log(allowance);
+
+    if (allowance >= (parseUnits(String(post.price), 6))) {
+      console.log("Approval successful. Allowance:", allowance.toString());
+      setIsApproved(true);
+    } else {
+      console.error("Approval failed. Allowance:", allowance.toString());
+      setIsApproved(false);
+    }
   };
 
   const onUnlock = async () => {
@@ -41,6 +53,9 @@ export const UnlockerButton =  ({
     const signer = await getSigner(primaryWallet);
 
     const kreToken = KREToken__factory.connect(SEPOLIA_CONTRACTS.KRETOKEN, signer);
+    console.log(kreToken);
+    console.log(post.id);
+
     const tx = await kreToken.unlock(post.id);
     console.log(tx);
     await tx.wait();

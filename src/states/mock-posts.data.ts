@@ -3,7 +3,7 @@ import { Post } from './posts.state';
 // TODO: DATA MOCKS
 export const MockPosts: Post[] = [
   {
-    id: 1,
+    id: 0,
     author: 'LilieS2',
     title: 'Lisa Vogue Interview 24.09.18 Translation',
     contents:
