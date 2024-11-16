@@ -1,13 +1,13 @@
 export const mockProducts = [
   {
-    id: 1,
+    id: 0,
     name: 'BLACKPINK Heart Message Stick',
     image: '/assets/illust/register.png',
     description: 'A heart message stick with BLACKPINK members’ signatures.',
     price: 100,
   },
   {
-    id: 2,
+    id: 1,
     name: 'LISA Photobook',
     image: '/assets/illust/register.png',
     description: 'A photobook featuring LISA’s daily life.',
