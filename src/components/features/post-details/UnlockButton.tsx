@@ -6,6 +6,7 @@ import { parseUnits } from 'ethers/utils';
 import { useState } from 'react';
 import { Post } from 'states/posts.state';
 import { KREToken__factory, MockUSDC__factory } from 'typechain/factories';
+import {purchasePost} from "../../../states/user.state.ts";
 
 interface UnlockerButtonProps {
   post: Post;
@@ -45,6 +46,7 @@ export const UnlockerButton =  ({
     setUnlocked(true);
 
     closeModal();
+    purchasePost(post.id);
   };
 
   if (unlocked) return null;
