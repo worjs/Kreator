@@ -32,7 +32,7 @@ export const UnlockerButton =  ({
 
     const mockUSDC = MockUSDC__factory.connect(SEPOLIA_CONTRACTS.MOCKUSDC, signer);
     console.log(post.price);
-    const tx = await mockUSDC.approve(SEPOLIA_CONTRACTS.MOCKUSDC, parseUnits(String(post.price), 6));
+    const tx = await mockUSDC.approve(SEPOLIA_CONTRACTS.KRETOKEN, parseUnits(String(post.price), 6));
     await tx.wait();
     console.log(tx);
     
@@ -53,7 +53,11 @@ export const UnlockerButton =  ({
     const signer = await getSigner(primaryWallet);
 
     const kreToken = KREToken__factory.connect(SEPOLIA_CONTRACTS.KRETOKEN, signer);
-    console.log(kreToken);
+    console.log(await kreToken.postPrices(post.id));
+
+    const usdc = MockUSDC__factory.connect(SEPOLIA_CONTRACTS.MOCKUSDC, signer);
+    console.log(await usdc.allowance(signer.address, SEPOLIA_CONTRACTS.KRETOKEN));
+    console.log(await usdc.balanceOf(signer.address));
     console.log(post.id);
 
     const tx = await kreToken.unlock(post.id);
