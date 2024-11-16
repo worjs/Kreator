@@ -1,6 +1,10 @@
 import Modal from 'components/materials/Modal';
 import { useState } from 'react';
 import { Post } from 'states/posts.state';
+import {useDynamicContext} from "@dynamic-labs/sdk-react-core";
+import {isEthereumWallet} from "@dynamic-labs/ethereum";
+import {getSigner} from "@dynamic-labs/ethers-v6";
+import {IERC20Minimal__factory} from "../../../typechain";
 
 interface UnlockerButtonProps {
   post: Post;
@@ -19,7 +23,16 @@ export const UnlockerButton = ({
 
   const onUnlock = async () => {
     setUnlocked(true);
-    // TODO: CONTRACT 상호작용
+    const { primaryWallet } = useDynamicContext();
+    if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
+
+    const USDCAddress =...ㅠㅠㅠ
+    const approveUSDC = async () => {
+      const signer = await getSigner(primaryWallet);
+      const usdc= IERC20Minimal__factory.connect("", signer);
+      usdc.approve()
+    }
+
     closeModal();
   };
 
