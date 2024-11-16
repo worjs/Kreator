@@ -30,16 +30,20 @@ export interface KRETokenInterface extends Interface {
       | "approve"
       | "artistEOA"
       | "balanceOf"
-      | "buy"
+      | "buyGoods"
       | "decimals"
       | "distribute"
       | "donationEOA"
+      | "goodsOwners"
+      | "goodsPrices"
       | "name"
+      | "nextGoodsId"
       | "nextPostId"
       | "owner"
       | "postOwners"
       | "postPrices"
-      | "registerCreation"
+      | "registerGoods"
+      | "registerPost"
       | "renounceOwnership"
       | "revenueOf"
       | "rewardForComment"
@@ -49,6 +53,7 @@ export interface KRETokenInterface extends Interface {
       | "transfer"
       | "transferFrom"
       | "transferOwnership"
+      | "unlock"
       | "usdcAddress"
   ): FunctionFragment;
 
@@ -75,7 +80,10 @@ export interface KRETokenInterface extends Interface {
     functionFragment: "balanceOf",
     values: [AddressLike]
   ): string;
-  encodeFunctionData(functionFragment: "buy", values: [BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: "buyGoods",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "distribute",
@@ -85,7 +93,19 @@ export interface KRETokenInterface extends Interface {
     functionFragment: "donationEOA",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "goodsOwners",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "goodsPrices",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "nextGoodsId",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "nextPostId",
     values?: undefined
@@ -100,7 +120,11 @@ export interface KRETokenInterface extends Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "registerCreation",
+    functionFragment: "registerGoods",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "registerPost",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -137,6 +161,10 @@ export interface KRETokenInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "unlock",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "usdcAddress",
     values?: undefined
   ): string;
@@ -145,20 +173,36 @@ export interface KRETokenInterface extends Interface {
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "artistEOA", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "buyGoods", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "distribute", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "donationEOA",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "goodsOwners",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "goodsPrices",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "nextGoodsId",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "nextPostId", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "postOwners", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "postPrices", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "registerCreation",
+    functionFragment: "registerGoods",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "registerPost",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -188,6 +232,7 @@ export interface KRETokenInterface extends Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "unlock", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "usdcAddress",
     data: BytesLike
@@ -355,7 +400,7 @@ export interface KREToken extends BaseContract {
 
   balanceOf: TypedContractMethod<[account: AddressLike], [bigint], "view">;
 
-  buy: TypedContractMethod<[postId: BigNumberish], [void], "nonpayable">;
+  buyGoods: TypedContractMethod<[goodsId: BigNumberish], [void], "nonpayable">;
 
   decimals: TypedContractMethod<[], [bigint], "view">;
 
@@ -363,7 +408,13 @@ export interface KREToken extends BaseContract {
 
   donationEOA: TypedContractMethod<[], [string], "view">;
 
+  goodsOwners: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+
+  goodsPrices: TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
+
   name: TypedContractMethod<[], [string], "view">;
+
+  nextGoodsId: TypedContractMethod<[], [bigint], "view">;
 
   nextPostId: TypedContractMethod<[], [bigint], "view">;
 
@@ -373,7 +424,13 @@ export interface KREToken extends BaseContract {
 
   postPrices: TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
 
-  registerCreation: TypedContractMethod<
+  registerGoods: TypedContractMethod<
+    [price: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  registerPost: TypedContractMethod<
     [price: BigNumberish],
     [void],
     "nonpayable"
@@ -409,6 +466,8 @@ export interface KREToken extends BaseContract {
     "nonpayable"
   >;
 
+  unlock: TypedContractMethod<[postId: BigNumberish], [void], "nonpayable">;
+
   usdcAddress: TypedContractMethod<[], [string], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
@@ -436,8 +495,8 @@ export interface KREToken extends BaseContract {
     nameOrSignature: "balanceOf"
   ): TypedContractMethod<[account: AddressLike], [bigint], "view">;
   getFunction(
-    nameOrSignature: "buy"
-  ): TypedContractMethod<[postId: BigNumberish], [void], "nonpayable">;
+    nameOrSignature: "buyGoods"
+  ): TypedContractMethod<[goodsId: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "decimals"
   ): TypedContractMethod<[], [bigint], "view">;
@@ -448,8 +507,17 @@ export interface KREToken extends BaseContract {
     nameOrSignature: "donationEOA"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "goodsOwners"
+  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+  getFunction(
+    nameOrSignature: "goodsPrices"
+  ): TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
+  getFunction(
     nameOrSignature: "name"
   ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "nextGoodsId"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "nextPostId"
   ): TypedContractMethod<[], [bigint], "view">;
@@ -463,7 +531,10 @@ export interface KREToken extends BaseContract {
     nameOrSignature: "postPrices"
   ): TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
   getFunction(
-    nameOrSignature: "registerCreation"
+    nameOrSignature: "registerGoods"
+  ): TypedContractMethod<[price: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "registerPost"
   ): TypedContractMethod<[price: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "renounceOwnership"
@@ -500,6 +571,9 @@ export interface KREToken extends BaseContract {
   getFunction(
     nameOrSignature: "transferOwnership"
   ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "unlock"
+  ): TypedContractMethod<[postId: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "usdcAddress"
   ): TypedContractMethod<[], [string], "view">;

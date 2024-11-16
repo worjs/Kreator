@@ -39,7 +39,7 @@ export const UnlockerButton =  ({
     const signer = await getSigner(primaryWallet);
 
     const kreToken = KREToken__factory.connect("0x45A8f175CAf1FA795D9EC7411427b399b65743eb", signer);
-    const tx = await kreToken.buy(post.id);
+    const tx = await kreToken.unlock(post.id);
     console.log(tx);
     await tx.wait();
     setUnlocked(true);

@@ -368,11 +368,11 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "postId",
+        name: "goodsId",
         type: "uint256",
       },
     ],
-    name: "buy",
+    name: "buyGoods",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -417,6 +417,44 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "goodsOwners",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "goodsPrices",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "name",
     outputs: [
@@ -424,6 +462,19 @@ const _abi = [
         internalType: "string",
         name: "",
         type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nextGoodsId",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -501,7 +552,20 @@ const _abi = [
         type: "uint256",
       },
     ],
-    name: "registerCreation",
+    name: "registerGoods",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "price",
+        type: "uint256",
+      },
+    ],
+    name: "registerPost",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -634,6 +698,19 @@ const _abi = [
       },
     ],
     name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "postId",
+        type: "uint256",
+      },
+    ],
+    name: "unlock",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

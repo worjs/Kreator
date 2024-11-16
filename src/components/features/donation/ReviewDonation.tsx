@@ -16,6 +16,29 @@ const ReviewDonation: React.FC<ReviewDonationProps> = ({
   onConfirm,
   onBack,
 }) => {
+  // const { primaryWallet } = useDynamicContext();
+  // const [isApproved, setIsApproved] = useState<boolean>(false);
+
+  // const onApprove = async () => {
+  //   if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
+  //   const signer = await getSigner(primaryWallet);
+
+  //   const mockUSDC = MockUSDC__factory.connect("0x29b021A913893A049266E7D5eD0fc553d4373E79", signer);
+  //   const tx = await mockUSDC.approve("0x45A8f175CAf1FA795D9EC7411427b399b65743eb", parseUnits(String(amount), 6));
+  //   await tx.wait();
+  //   setIsApproved(true);
+  // };
+
+  // const onDonate = async () => {
+  //   if (!primaryWallet || !isEthereumWallet(primaryWallet)) return null;
+  //   const signer = await getSigner(primaryWallet);
+
+  //   const kreToken = KREToken__factory.connect("0x29b021A913893A049266E7D5eD0fc553d4373E79", signer);
+  //   const tx = await kreToken.distribute(amount);
+  //   await tx.wait();
+  //   setIsApproved(true);
+  // };
+
   return (
     <div className="flex flex-col items-center">
       {star && (
@@ -40,7 +63,7 @@ const ReviewDonation: React.FC<ReviewDonationProps> = ({
           Change the organization
         </button>
         <button className="btn-primary" onClick={onConfirm}>
-          YES
+          Yes
         </button>
       </div>
     </div>

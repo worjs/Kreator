@@ -29,7 +29,7 @@ const CreatePost = () => {
     const signer = await getSigner(primaryWallet);
     const kreToken = KREToken__factory.connect('0x42705d3F7F9CfD7E0040E7077389E4ea15617Ec7', signer);
     console.log(signer);
-    const tx = await kreToken.registerCreation(Number(price));
+    const tx = await kreToken.registerPost(Number(price));
     await tx.wait();
 
     addPost({
