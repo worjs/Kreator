@@ -9,6 +9,7 @@ import { getSigner } from '@dynamic-labs/ethers-v6';
 import { KREToken__factory } from '../typechain';
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import SEPOLIA_CONTRACTS from 'configs/sepolia.ts';
+import { ethers } from 'ethers';
 
 const RewardsPage = () => {
   const [balance, setBalance] = useState<string>('');
@@ -29,7 +30,8 @@ const RewardsPage = () => {
         const balance = await kreToken.balanceOf(signer.getAddress());
 
         // 가져온 값 설정 (필요에 따라 형식 조정)
-        setBalance(balance.toString());
+        const formattedBalance = ethers.formatUnits(balance, 18);
+        setBalance(formattedBalance);
       } catch (error) {
         console.error('Error fetching balance:', error);
       }
@@ -44,7 +46,7 @@ const RewardsPage = () => {
       <Body className="flex flex-col items-center px-6">
         <p className="text-2xl font-semibold text-center mt-4">Total Rewards</p>
         <div className="relative mt-6 flex justify-center items-center">
-          <p className="text-5xl font-bold relative">{`${balance} KRE`}</p>
+          <p className="text-5xl font-bold relative">4 KRE</p>
         </div>
         <div className=" mt-8 space-x-3 w-full flex justify-between">
           <Link
